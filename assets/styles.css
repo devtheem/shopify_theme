@@ -1,0 +1,77 @@
+/* General header styles */
+.site-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.site-header__wrapper {
+  display: flex;
+  justify-content: space-between; /* Spread items to left, center, and right */
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Navigation menu styles */
+.site-header__nav {
+  margin-left: 0; /* Push menu to the leftmost */
+}
+
+.site-header__nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+
+.site-header__nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.site-header__nav a:hover {
+  color: #007acc;
+}
+
+/* Logo styles */
+.site-header__logo {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  flex: 1; /* Center the logo while other elements stick to the edges */
+}
+
+.site-header__logo a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Icons (Cart & Account) */
+.site-header__icons {
+  display: flex;
+  gap: 15px;
+  margin-right: 0; /* Push icons to the rightmost */
+}
+
+.site-header__icons a {
+  color: #333;
+  text-decoration: none;
+}
+
+.site-header__icons a:hover {
+  color: #007acc;
+}
+
+.site-header__icons svg {
+  width: 24px;
+  height: 24px;
+}

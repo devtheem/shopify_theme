@@ -1,0 +1,24 @@
+<html>
+    <head>
+        {{ content_for_header }}
+        
+        <style>
+                :root {
+                    --primary-font: {{ settings.primary_font.family | escape }};
+                    --secondary-font: {{ settings.secondary_font.family | escape }};
+                    --heading-font: {{ settings.heading_font.family | escape }};
+                }
+        </style>
+        <link rel="stylesheet" href="{{ 'typography.css' | asset_url }}">
+        <link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+        
+        
+
+    </head>
+    <body>
+        {{ content_for_layout }}
+    </body>
+    </html>

@@ -1,0 +1,88 @@
+{
+  "current": {
+    "header_menu": "main-menu",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "text_color_non_sticky": "#fafafa",
+          "text_color_sticky": "#000000",
+          "nav_text_color": "#ffffff",
+          "nav_text_size": 16,
+          "logo_text_color": "#ffffff",
+          "logo_text_size": 34,
+          "icon_color": "#ffffff",
+          "icon_size": 19
+        }
+      },
+      "slider": {
+        "type": "slider",
+        "blocks": {
+          "slide_pnPKVP": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify:\/\/shop_images\/young-female-models-denim_925x_570d6ed4-1322-4bc0-b526-1dbeb23a28e3.jpg",
+              "slide_text": "Winter's Collection",
+              "slide_description": "",
+              "slide_button_text": "Shop Now",
+              "slide_button_link": "",
+              "image_fit": "cover",
+              "text_position_top": 16,
+              "text_position_left": 8,
+              "text_size": 28,
+              "button_radius": 16
+            }
+          },
+          "slide_brpzx6": {
+            "type": "slide",
+            "settings": {
+              "slide_image": "shopify:\/\/shop_images\/red-plaid-shirt_925x_f1166be1-ae9a-4f03-a12a-6e51d42742de.jpg",
+              "slide_text": "Summer's",
+              "slide_description": "",
+              "slide_button_text": "Get Now",
+              "slide_button_link": "",
+              "image_fit": "contain",
+              "text_position_top": 50,
+              "text_position_left": 50,
+              "text_size": 16,
+              "button_radius": 5
+            }
+          }
+        },
+        "block_order": [
+          "slide_pnPKVP",
+          "slide_brpzx6"
+        ],
+        "settings": {
+          "image_width": 150,
+          "image_height": 150,
+          "transition_duration": 1
+        }
+      },
+      "dynamic-sections": {
+        "type": "dynamic-sections",
+        "settings": {}
+      },
+      "collections": {
+        "type": "collections",
+        "settings": {
+          "title": "Browse Our Categories",
+          "description": "Discover our curated collections and shop by category.",
+          "title_alignment": "center",
+          "description_alignment": "center",
+          "collections": [
+            "tops",
+            "bottoms",
+            "shoes",
+            "bags"
+          ],
+          "collection_limit": 5,
+          "title_font_size": 24,
+          "title_font_weight": "normal",
+          "title_underline": "no"
+        }
+      }
+    },
+    "content_for_index": []
+  }
+}

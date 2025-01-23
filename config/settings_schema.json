@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "primary_font",
+        "label": "Primary Font",
+        "default": "work_sans_n4",
+        "info": "Choose the primary font for the theme."
+      },
+      {
+        "type": "font_picker",
+        "id": "secondary_font",
+        "label": "Secondary Font",
+        "default": "work_sans_n6",
+        "info": "Choose the secondary font for the theme."
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading Font",
+        "default": "work_sans_n7",
+        "info": "Choose the font for headings."
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "header_logo",
+        "label": "Header Logo",
+        "info": "Upload your logo to display in the header."
+      },
+      {
+        "type": "link_list",
+        "id": "header_menu",
+        "label": "Header Menu",
+        "info": "Select the navigation menu to display in the header."
+      },
+      {
+        "type": "text",
+        "id": "text_logo",
+        "label": "Text Logo",
+        "default": "My Store",
+        "info": "Text to display as a fallback if no logo is uploaded."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_account_icon",
+        "label": "Show Account Icon",
+        "default": true,
+        "info": "Enable or disable the account icon in the header."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_icon",
+        "label": "Show Cart Icon",
+        "default": true,
+        "info": "Enable or disable the cart icon in the header."
+      },
+      {
+        "type": "color",
+        "id": "header_background_color",
+        "label": "Header Background Color",
+        "default": "#ffffff",
+        "info": "Set the background color for the header."
+      },
+      {
+        "type": "range",
+        "id": "header_padding",
+        "label": "Header Padding (px)",
+        "default": 15,
+        "min": 5,
+        "max": 50,
+        "step": 1,
+        "info": "Adjust the padding for the header area."
+      }
+    ]
+  }
+]

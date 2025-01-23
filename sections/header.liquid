@@ -1,0 +1,178 @@
+<header class="site-header">
+  <div class="site-header__wrapper">
+    <!-- Navigation -->
+    <nav class="site-header__nav">
+      <ul>
+        {% for link in linklists.main-menu.links %}
+          <li><a href="{{ link.url }}" style="color: {{ settings.nav_text_color }}; font-size: {{ settings.nav_text_size }}px;">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+    
+    <!-- Logo -->
+    <div class="site-header__logo">
+      <a href="/">
+        {% if settings.header_logo %}
+          <img 
+            src="{{ settings.header_logo | img_url: '250x' }}" 
+            alt="{{ shop.name }}" 
+            width="250" 
+            height="auto">
+        {% else %}
+          <h1 style="color: {{ settings.logo_text_color }}; font-size: {{ settings.logo_text_size }}px;">{{ shop.name }}</h1> <!-- Fallback for no logo -->
+        {% endif %}
+      </a>
+    </div>
+
+    <!-- Icons -->
+    <div class="site-header__icons">
+      {% if settings.show_account_icon %}
+        <a href="/account" class="icon icon-account" style="color: {{ settings.icon_color }}; font-size: {{ settings.icon_size }}px;"><i class="fas fa-user"></i></a>
+      {% endif %}
+      {% if settings.show_cart_icon %}
+        <a href="/cart" class="icon icon-cart" style="color: {{ settings.icon_color }}; font-size: {{ settings.icon_size }}px;"><i class="fas fa-shopping-cart"></i></a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    z-index: 1000;
+    color: {{ settings.text_color_non_sticky }}; /* Non-sticky text and icon color */
+  }
+
+  .site-header.scrolled {
+    position: fixed;
+    top: 0;
+    background-color: #eceeed; /* Change this to your desired background color */
+    color: {{ settings.text_color_sticky }}; /* Sticky text and icon color */
+  }
+
+  .site-header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-header__nav {
+    order: 1;
+  }
+
+  .site-header__logo {
+    order: 2;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .site-header__icons {
+    order: 3;
+    display: flex;
+    gap: 10px; /* Adjust spacing between icons as needed */
+  }
+
+  .site-header__nav ul {
+    display: flex;
+    gap: 20px; /* Adjust spacing between menu items as needed */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .site-header__nav ul li {
+    display: inline;
+  }
+
+  .site-header__nav ul li a {
+    text-decoration: none;
+    color: inherit; /* Ensure the text color changes with the header color */
+  }
+
+  .icon {
+    color: inherit; /* Ensure the icon color changes with the header color */
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.site-header');
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "color",
+      "id": "text_color_non_sticky",
+      "label": "Text and Icon Color (Non-Sticky)",
+      "default": "#ffffff" /* Default to white */
+    },
+    {
+      "type": "color",
+      "id": "text_color_sticky",
+      "label": "Text and Icon Color (Sticky)",
+      "default": "#000000" /* Default to black */
+    },
+    {
+      "type": "color",
+      "id": "nav_text_color",
+      "label": "Navigation Text Color",
+      "default": "#ffffff" /* Default to white */
+    },
+    {
+      "type": "range",
+      "id": "nav_text_size",
+      "label": "Navigation Text Size (px)",
+      "default": 16,
+      "min": 10,
+      "max": 30,
+      "step": 1
+    },
+    {
+      "type": "color",
+      "id": "logo_text_color",
+      "label": "Logo Text Color",
+      "default": "#ffffff" /* Default to white */
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "label": "Logo Text Size (px)",
+      "default": 24,
+      "min": 16,
+      "max": 48,
+      "step": 1
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#ffffff" /* Default to white */
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size (px)",
+      "default": 16,
+      "min": 10,
+      "max": 30,
+      "step": 1
+    }
+  ]
+}
+{% endschema %}

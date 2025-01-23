@@ -1,0 +1,174 @@
+<div class="dynamic-sections-wrapper">
+  {% for block in section.blocks %}
+    <div class="dynamic-block block-{{ block.type }}">
+      {% case block.type %}
+        <!-- Static Section -->
+        {% when 'static-header' %}
+          <h1>{{ block.settings.title }}</h1>
+          <p>{{ block.settings.description }}</p>
+
+        <!-- Dynamic Section -->
+        {% when 'dynamic-content' %}
+          <h2>{{ block.settings.heading }}</h2>
+          <div>{{ block.settings.content | escape }}</div>
+
+        <!-- Homepage Section -->
+        {% when 'homepage-banner' %}
+          <div class="banner">
+            <img src="{{ block.settings.image | file_url }}" alt="{{ block.settings.alt_text }}">
+            <h2>{{ block.settings.heading }}</h2>
+          </div>
+
+        <!-- Template-Specific Section -->
+        {% when 'product-recommendations' %}
+          {% render 'product-recommendations', product: block.settings.product %}
+
+        <!-- App Section -->
+        {% when 'app-widget' %}
+          <div class="app-widget">
+            <p>App-specific widget can be integrated here.</p>
+          </div>
+
+        <!-- Custom Section -->
+        {% when 'custom-html' %}
+          <div class="custom-html">
+            {{ block.settings.custom_html | raw }}
+          </div>
+      {% endcase %}
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Dynamic Sections",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "static-header",
+      "name": "Static Header",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Welcome to our store!"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Your store description goes here."
+        }
+      ]
+    },
+    {
+      "type": "dynamic-content",
+      "name": "Dynamic Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Dynamic Content Section"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Content",
+          "default": "This is some dynamic content."
+        }
+      ]
+    },
+    {
+      "type": "homepage-banner",
+      "name": "Homepage Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Banner Heading",
+          "default": "Welcome to our homepage!"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt Text",
+          "default": "Homepage banner image"
+        }
+      ]
+    },
+    {
+      "type": "product-recommendations",
+      "name": "Product Recommendations",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    },
+    {
+      "type": "app-widget",
+      "name": "App Widget",
+      "settings": []
+    },
+    {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "custom_html",
+          "label": "Custom HTML Code",
+          "default": "<p>Your custom HTML here.</p>"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "static-header",
+        "settings": {
+          "title": "Welcome to our store!",
+          "description": "Your store description goes here."
+        }
+      },
+      {
+        "type": "dynamic-content",
+        "settings": {
+          "heading": "Dynamic Content Section Example",
+          "content": "This is an example of dynamic content."
+        }
+      },
+      {
+        "type": "homepage-banner",
+        "settings": {
+          "image": "",
+          "heading": "Homepage Banner Example",
+          "alt_text": "An example homepage banner image"
+        }
+      },
+      {
+        "type": "product-recommendations",
+        "settings": {
+          "product": ""
+        }
+      },
+      {
+        "type": "custom-html",
+        "settings": {
+          "custom_html": "<p>This is custom HTML content.</p>"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

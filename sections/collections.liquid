@@ -1,0 +1,125 @@
+{% comment %}
+  This section displays a collection grid with title and description.
+{% endcomment %}
+
+<div class="collections-section">
+  <header class="section-header">
+    <h2 class="section-title">{{ section.settings.title }}</h2>
+    <div class="section-description">{{ section.settings.description }}</div>
+  </header>
+  
+  <div class="collections-grid">
+    {% assign collections = section.settings.collections %}
+    {% for collection in collections %}
+      <div class="collection-item">
+        <a href="{{ collection.url }}">
+          <img src="{{ collection.image.src | img_url: 'medium' }}" alt="{{ collection.title }}" class="collection-image">
+          <h3 class="collection-title">{{ collection.title }}</h3>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .section-header { text-align: {{ section.settings.title_alignment }}; }
+  .section-description { text-align: {{ section.settings.description_alignment }}; }
+  .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .collection-item { text-align: center; }
+  .collection-image {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .collection-title {
+    font-size: {{ section.settings.title_font_size }}px;
+    font-weight: {{ section.settings.title_font_weight }};
+    
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "description_alignment",
+      "label": "Description Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections"
+    },
+    {
+      "type": "range",
+      "id": "collection_limit",
+      "label": "Number of Collections to Show",
+      "default": 4,
+      "min": 1,
+      "max": 10
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title Font Size (px)",
+      "default": 16,
+      "min": 10,
+      "max": 50
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title Font Weight",
+      "options": [
+        { "value": "normal", "label": "Normal" },
+        { "value": "bold", "label": "Bold" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "select",
+      "id": "title_underline",
+      "label": "Title Underline",
+      "options": [
+        { "value": "yes", "label": "Yes" },
+        { "value": "no", "label": "No" }
+      ],
+      "default": "no"
+    }
+  ]
+}
+{% endschema %}

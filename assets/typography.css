@@ -1,0 +1,11 @@
+.primary-font {
+    font-family: var(--primary-font), Arial, Helvetica, sans-serif;
+}
+
+.secondary-font {
+    font-family: var(--secondary-font), 'Times New Roman', Times, serif;
+}
+
+.heading-font {
+    font-family: var(--heading-font), Georgia, serif;
+}

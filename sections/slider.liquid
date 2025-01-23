@@ -1,0 +1,254 @@
+<section class="slider-section">
+  <div class="slider-container">
+    {% for block in section.blocks %}
+      <div class="slider-slide">
+        <!-- Slide Image -->
+        {% if block.settings.slide_image %}
+          <img 
+            src="{{ block.settings.slide_image | img_url: '1024x1024' }}" 
+            alt="{{ block.settings.slide_text | escape }}" 
+            class="slider-image" 
+            style="object-fit: {{ block.settings.image_fit }}; width: {{ block.settings.image_width }}%; height: {{ block.settings.image_height }}%;">
+        {% endif %}
+
+        <!-- Slide Content -->
+        <div class="slider-content" style="top: {{ block.settings.text_position_top }}%; left: {{ block.settings.text_position_left }}%;">
+          {% if block.settings.slide_text %}
+            <h2 style="font-size: {{ block.settings.text_size }}px; font-family: {{ block.settings.text_font }};">{{ block.settings.slide_text }}</h2>
+          {% endif %}
+          {% if block.settings.slide_description %}
+            <p style="font-size: {{ block.settings.text_size }}px; font-family: {{ block.settings.text_font }};">{{ block.settings.slide_description }}</p>
+          {% endif %}
+          {% if block.settings.slide_button_text %}
+            <a href="{{ block.settings.slide_button_link }}" class="slider-button" style="border-radius: {{ block.settings.button_radius }}px;">
+              {{ block.settings.slide_button_text }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Slider Controls -->
+  <button class="slider-prev" aria-label="Previous Slide" style="background-color: transparent; border: none;">←</button>
+  <button class="slider-next" aria-label="Next Slide" style="background-color: transparent; border: none;">→</button>
+</section>
+
+<style>
+  .slider-section {
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    max-height: 500px; /* Restrict section height */
+  }
+
+  .slider-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slider-slide {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+  }
+
+  .slider-image {
+    width: 100%;
+    height: 1000px;
+    display: block;
+    max-height: 1000px; /* Restrict image height */
+  }
+
+  .slider-content {
+    position: absolute;
+    padding: 20px;
+    text-align: center;
+    color: #fff; /* Make text visible over image */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 5px;
+  }
+
+  .slider-button {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #0073aa;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px; /* Default radius */
+  }
+
+  .slider-prev,
+  .slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .slider-prev {
+    left: 10px;
+  }
+
+  .slider-next {
+    right: 10px;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sliderContainer = document.querySelector('.slider-container');
+    const slides = document.querySelectorAll('.slider-slide');
+    const prevBtn = document.querySelector('.slider-prev');
+    const nextBtn = document.querySelector('.slider-next');
+    let currentIndex = 0;
+
+    function updateSlider() {
+      sliderContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+      slides.forEach(slide => slide.style.transition = '{{ section.settings.transition_duration }}s');
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex > 0) ? currentIndex - 1 : slides.length - 1;
+      updateSlider();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      updateSlider();
+    });
+
+    // Initialize the slider position
+    updateSlider();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Slider Section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image Width (%)",
+      "default": 100,
+      "min": 50,
+      "max": 150,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Image Height (%)",
+      "default": 100,
+      "min": 50,
+      "max": 150,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "transition_duration",
+      "label": "Transition Duration (s)",
+      "default": 0.5,
+      "min": 0.1,
+      "max": 5,
+      "step": 0.1
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "text",
+          "id": "slide_text",
+          "label": "Slide Title"
+        },
+        {
+          "type": "textarea",
+          "id": "slide_description",
+          "label": "Slide Description"
+        },
+        {
+          "type": "text",
+          "id": "slide_button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "slide_button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "image_fit",
+          "label": "Image Fit",
+          "options": [
+            { "value": "cover", "label": "Cover" },
+            { "value": "contain", "label": "Contain" },
+            { "value": "fill", "label": "Fill" },
+            { "value": "none", "label": "None" },
+            { "value": "scale-down", "label": "Scale Down" }
+          ],
+          "default": "cover"
+        },
+        {
+          "type": "range",
+          "id": "text_position_top",
+          "label": "Text Position Top (%)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "text_position_left",
+          "label": "Text Position Left (%)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "Text Size (px)",
+          "default": 16,
+          "min": 10,
+          "max": 50,
+          "step": 1
+        },
+        
+        {
+          "type": "range",
+          "id": "button_radius",
+          "label": "Button Radius (px)",
+          "default": 5,
+          "min": 0,
+          "max": 50,
+          "step": 1
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider Section"
+    }
+  ]
+}
+{% endschema %}

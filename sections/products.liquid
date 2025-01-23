@@ -1,0 +1,46 @@
+<!-- sections/products.liquid or a new section file -->
+
+{% assign number_of_products = 10 %}
+{% assign product_size = 'medium' %}
+{% assign product_type = 'featured' %}
+{% assign order_by = 'added_date' %}
+
+<!-- Fetching products based on type -->
+{% if product_type == 'featured' %}
+  {% assign products = collections.featured.products %}
+{% elsif product_type == 'trending' %}
+  {% assign products = collections.trending.products %}
+{% else %}
+  {% assign products = collections.all.products %}
+{% endif %}
+
+<!-- Sorting products based on order_by -->
+{% if order_by == 'added_date' %}
+  {% assign products = products | sort: 'created_at' %}
+{% elsif order_by == 'price' %}
+  {% assign products = products | sort: 'price' %}
+{% elsif order_by == 'rating' %}
+  {% assign products = products | sort: 'rating' %}
+{% endif %}
+
+<!-- Limit number of products to display -->
+{% assign products = products | slice: 0, number_of_products %}
+
+<!-- Display the products in a grid -->
+<div class="product-grid">
+  {% for product in products %}
+    <div class="product-block" style="width: {% case product_size %}
+                                      {% when 'small' %} 150px
+                                      {% when 'medium' %} 200px
+                                      {% when 'large' %} 250px
+                                      {% endcase %};">
+      <!-- Add width and height to the image tag to avoid layout shifts -->
+      <img src="{{ product.featured_image | img_url: '200x200' }}" 
+           alt="{{ product.title }}" 
+           width="200" 
+           height="200">
+      <p class="product-name">{{ product.title }}</p>
+      <p class="product-price">${{ product.price | money }}</p>
+    </div>
+  {% endfor %}
+</div>

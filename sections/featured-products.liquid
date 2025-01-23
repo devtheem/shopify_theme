@@ -1,0 +1,59 @@
+<!-- featured-products.liquid -->
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "number",
+      "id": "number_of_products",
+      "label": "Number of Products to Display",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "order_by",
+      "label": "Order Products By",
+      "options": [
+        { "value": "added_date", "label": "Added Date" },
+        { "value": "price", "label": "Price" },
+        { "value": "rating", "label": "Rating" }
+      ],
+      "default": "added_date"
+    }
+  ]
+}
+{% endschema %}
+
+{% assign number_of_products = section.settings.number_of_products %}
+{% assign order_by = section.settings.order_by %}
+
+<!-- Fetch featured products (adjust this as needed) -->
+{% assign products = collections.all.products | where: "tags", "featured" %}
+
+<!-- Sorting products based on order_by -->
+{% if order_by == 'added_date' %}
+  {% assign products = products | sort: 'created_at' %}
+{% elsif order_by == 'price' %}
+  {% assign products = products | sort: 'price' %}
+{% elsif order_by == 'rating' %}
+  {% assign products = products | sort: 'rating' %}
+{% endif %}
+
+<!-- Limit number of products to display -->
+{% assign products = products | slice: 0, number_of_products %}
+
+<!-- Product Grid Display -->
+<div class="product-grid">
+  {% for product in products %}
+    <div class="product-block" style="width: 200px;">
+      <!-- Use img_url filter with width & height for proper dimensions -->
+      <img src="{{ product.featured_image | img_url: '200x200' }}" 
+           alt="{{ product.title }}" 
+           width="200" 
+           height="200" />
+      <p class="product-name">{{ product.title }}</p>
+      <p class="product-price">${{ product.price | money }}</p>
+    </div>
+  {% endfor %}
+</div>
